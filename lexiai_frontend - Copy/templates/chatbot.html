@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block head %}
+{{ super() }}
+<script src="{{ url_for('static', filename='chatbot.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="chatbot-container">
+    <div class="chatbot-header">
+        <h1 class="chatbot-title">LexiAI Chatbot</h1>
+        <p class="chatbot-subtext">Ask anything related to your document or legal query</p>
+    </div>
+
+    <div class="chat-window" id="chatWindow" role="log" aria-live="polite" aria-atomic="false"></div>
+
+    <div id="typing-indicator" class="typing-indicator hidden">
+        <span class="typing-text">LexiAI is thinking</span>
+        <span class="dots"><span>.</span><span>.</span><span>.</span></span>
+    </div>
+
+    <div class="chat-input-container">
+        <div class="chat-input-box">
+            <input 
+                type="text" 
+                id="userInput" 
+                class="chat-input"
+                placeholder="Type your message..." 
+                aria-label="Type your message"
+                autocomplete="off"
+            />
+            <button 
+                id="voiceInputBtn" 
+                class="chat-control voice-btn" 
+                type="button" 
+                aria-label="Start voice input"
+                data-state="inactive"
+                title="Start voice input"
+            >
+                🎤
+            </button>
+            <button 
+                id="voicePauseBtn"
+                class="chat-control pause-btn hidden"
+                type="button"
+                aria-label="Pause voice input"
+                title="Pause voice input"
+            >
+                ⏸️
+            </button>
+            <button 
+                id="sendButton" 
+                class="chat-control send-btn" 
+                type="button"
+                aria-label="Send message"
+                title="Send message"
+            >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div id="voiceStatus" class="voice-status" aria-live="polite"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle">Login to continue using LexiAI</p>
+
+        <form action="/login" method="POST" class="auth-form">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" value="{{ email or '' }}" required />
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required />
+            </div>
+
+            <button type="submit" class="btn primary-btn auth-btn">Login</button>
+        </form>
+
+        <p class="switch-auth">Don't have an account? <a href="/signup">Signup</a></p>
+    </div>
+</div>
+{% endblock %}

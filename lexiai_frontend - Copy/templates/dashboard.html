@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-container">
+
+    <h1 class="dashboard-title">Welcome to LexiAI</h1>
+    <p class="dashboard-subtext">Choose a module to get started</p>
+
+    <div class="dashboard-grid">
+
+        <!-- Summarizer Card -->
+        <a href="/summary" class="dash-card">
+            <div class="card-icon">📄</div>
+            <h3>Summarizer</h3>
+            <p>Upload legal documents and get clean bullet-point summaries.</p>
+        </a>
+
+        <!-- Chatbot Card -->
+        <a href="/chatbot" class="dash-card">
+            <div class="card-icon">🤖</div>
+            <h3>Chatbot</h3>
+            <p>Ask any legal or document-related question instantly.</p>
+        </a>
+
+        <!-- Drafts Card -->
+        <a href="/drafts" class="dash-card">
+            <div class="card-icon">📥</div>
+            <h3>Drafts</h3>
+            <p>Download ready-made legal document templates.</p>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

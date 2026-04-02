@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block head %}
+{{ super() }}
+<script src="{{ url_for('static', filename='summary.js') }}" defer></script>
+{% endblock %}
+{% block content %}
+<div class="summary-container">
+    <div class="summary-header">
+        <h1 class="summary-title">Document Summarizer</h1>
+        <p class="summary-subtext">Upload your legal document and get clear bullet-point summaries</p>
+    </div>
+
+    <form id="summaryForm" action="/summary" method="POST" enctype="multipart/form-data" class="summary-form">
+        <div class="input-group file-upload-container">
+            <label for="document">Choose Document (PDF / DOCX / TXT)</label>
+            <div class="file-input-wrapper">
+                <input type="file" id="document" name="document" accept=".pdf,.docx,.doc,.txt" required 
+                       onchange="validateFileType(this)" />
+                <div class="file-input-placeholder">
+                    <i class="upload-icon">📄</i>
+                    <span class="file-name">No file chosen</span>
+                </div>
+            </div>
+            <div id="fileError" class="error-message"></div>
+        </div>
+
+        <div class="input-group">
+            <label for="output_language">Select Output Language</label>
+            <select id="output_language" name="output_language" class="language-select" required>
+                <option value="english" {% if selected_language_key == 'english' %}selected{% endif %}>English</option>
+                <option value="kannada" {% if selected_language_key == 'kannada' %}selected{% endif %}>Kannada</option>
+                <option value="hindi" {% if selected_language_key == 'hindi' %}selected{% endif %}>Hindi</option>
+                <option value="telugu" {% if selected_language_key == 'telugu' %}selected{% endif %}>Telugu</option>
+                <option value="tamil" {% if selected_language_key == 'tamil' %}selected{% endif %}>Tamil</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn primary-btn generate-btn">
+            <span class="btn-text">Generate Summary</span>
+            <span class="btn-loading hidden">Processing...</span>
+        </button>
+    </form>
+
+    {% if error_msg %}
+    <div class="result-section">
+        <h2 class="result-title">Error</h2>
+        <div class="result-box">{{ error_msg }}</div>
+    </div>
+    {% endif %}
+
+    {% if bullet %}
+    <div class="result-section">
+        <h2 class="result-title">Bullet Summary</h2>
+        <div class="result-box">{{ bullet }}</div>
+
+        <form action="/download/pdf" method="POST">
+            <input type="hidden" name="content" value="{{ bullet }}" />
+            <button class="btn secondary-btn">Download PDF</button>
+        </form>
+
+        <form action="/download/docx" method="POST">
+            <input type="hidden" name="content" value="{{ bullet }}" />
+            <button class="btn secondary-btn">Download DOCX</button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if translated %}
+    <div class="result-section">
+        {% if selected_language and selected_language|lower != 'english' %}
+        <h2 class="result-title">Translated Summary ({{ selected_language }})</h2>
+        {% else %}
+        <h2 class="result-title">Translated Summary (English)</h2>
+        {% endif %}
+        <div class="result-box">{{ translated }}</div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

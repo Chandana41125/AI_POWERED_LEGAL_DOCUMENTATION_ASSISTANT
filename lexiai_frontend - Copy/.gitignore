@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+venv/
+
+# VS Code
+.vscode/
+
+# System
+.DS_Store
+
+# Database
+*.db
+*.sqlite3
+
+# Project specific
+uploads/
+
+# Secrets
+config.py
+*.log
